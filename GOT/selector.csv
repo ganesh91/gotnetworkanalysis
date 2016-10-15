@@ -1,0 +1,189 @@
+
+.selector('#Valyrian')
+	.css({
+		'background-image': './images/Valyrian.jpg',
+		'height': 80,'width': 80	})
+.selector('#RhaegarTargaryen')
+	.css({
+		'background-image': './images/Rhaegar Targaryen.jpg',
+		'height': 80,'width': 80	})
+.selector('#DaenerysTargaryen')
+	.css({
+		'background-image': './images/Daenerys Targaryen.jpg',
+		'height': 80,'width': 80	})
+.selector('#JonSnow')
+	.css({
+		'background-image': './images/Jon Snow.jpg',
+		'height': 80,'width': 80	})
+.selector('#RobertBaratheon')
+	.css({
+		'background-image': './images/Robert Baratheon.jpg',
+		'height': 80,'width': 80	})
+.selector('#HouseTargaryen')
+	.css({
+		'background-image': './images/House Targaryen.jpg',
+		'height': 80,'width': 80	})
+.selector('#EddardStark')
+	.css({
+		'background-image': './images/Eddard Stark.jpg',
+		'height': 80,'width': 80	})
+.selector('#RobbStark')
+	.css({
+		'background-image': './images/Robb Stark.jpg',
+		'height': 80,'width': 80	})
+.selector('#SansaStark')
+	.css({
+		'background-image': './images/Sansa Stark.jpg',
+		'height': 80,'width': 80	})
+.selector('#BranStark')
+	.css({
+		'background-image': './images/Bran Stark.jpg',
+		'height': 80,'width': 80	})
+.selector('#TyrionLannister')
+	.css({
+		'background-image': './images/Tyrion Lannister.jpg',
+		'height': 80,'width': 80	})
+.selector('#RamsayBolton')
+	.css({
+		'background-image': './images/Ramsay Bolton.jpg',
+		'height': 80,'width': 80	})
+.selector('#PetyrBaelish')
+	.css({
+		'background-image': './images/Petyr Baelish.jpg',
+		'height': 80,'width': 80	})
+.selector('#Northmen')
+	.css({
+		'background-image': './images/Northmen.jpg',
+		'height': 80,'width': 80	})
+.selector('#HouseStark')
+	.css({
+		'background-image': './images/House Stark.jpg',
+		'height': 80,'width': 80	})
+.selector('#OldGodsoftheForest')
+	.css({
+		'background-image': './images/Old Gods of the Forest.jpg',
+		'height': 80,'width': 80	})
+.selector('#FaithoftheSeven')
+	.css({
+		'background-image': './images/Faith of the Seven.jpg',
+		'height': 80,'width': 80	})
+.selector('#Many-FacedGod')
+	.css({
+		'background-image': './images/Many-Faced God.jpg',
+		'height': 80,'width': 80	})
+.selector('#HouseTarth')
+	.css({
+		'background-image': './images/House Tarth.jpg',
+		'height': 80,'width': 80	})
+.selector('#AryaStark')
+	.css({
+		'background-image': './images/Arya Stark.jpg',
+		'height': 80,'width': 80	})
+.selector('#HouseLannister')
+	.css({
+		'background-image': './images/House Lannister.jpg',
+		'height': 80,'width': 80	})
+.selector('#OberynMartell')
+	.css({
+		'background-image': './images/Oberyn Martell.jpg',
+		'height': 80,'width': 80	})
+.selector('#SandorClegane')
+	.css({
+		'background-image': './images/Sandor Clegane.jpg',
+		'height': 80,'width': 80	})
+.selector('#AerysIITargaryen')
+	.css({
+		'background-image': './images/Aerys II Targaryen.jpg',
+		'height': 80,'width': 80	})
+.selector('#Ygritte')
+	.css({
+		'background-image': './images/Ygritte.jpg',
+		'height': 80,'width': 80	})
+.selector('#MargaeryTyrell')
+	.css({
+		'background-image': './images/Margaery Tyrell.jpg',
+		'height': 80,'width': 80	})
+.selector('#LyannaMormont')
+	.css({
+		'background-image': './images/Lyanna Mormont.jpg',
+		'height': 80,'width': 80	})
+.selector('#Varys')
+	.css({
+		'background-image': './images/Varys.jpg',
+		'height': 80,'width': 80	})
+.selector('#HouseMormont')
+	.css({
+		'background-image': './images/House Mormont.jpg',
+		'height': 80,'width': 80	})
+.selector('#JorahMormont')
+	.css({
+		'background-image': './images/Jorah Mormont.jpg',
+		'height': 80,'width': 80	})
+.selector('#HouseTyrell')
+	.css({
+		'background-image': './images/House Tyrell.jpg',
+		'height': 80,'width': 80	})
+.selector('#StannisBaratheon')
+	.css({
+		'background-image': './images/Stannis Baratheon.jpg',
+		'height': 80,'width': 80	})
+.selector('#JoffreyBaratheon')
+	.css({
+		'background-image': './images/Joffrey Baratheon.jpg',
+		'height': 80,'width': 80	})
+.selector('#TommenBaratheon')
+	.css({
+		'background-image': './images/Tommen Baratheon.jpg',
+		'height': 80,'width': 80	})
+.selector('#CerseiLannister')
+	.css({
+		'background-image': './images/Cersei Lannister.jpg',
+		'height': 80,'width': 80	})
+.selector('#TywinLannister')
+	.css({
+		'background-image': './images/Tywin Lannister.jpg',
+		'height': 80,'width': 80	})
+.selector('#theLordofLight')
+	.css({
+		'background-image': './images/the Lord of Light.jpg',
+		'height': 80,'width': 80	})
+.selector('#GregorClegane')
+	.css({
+		'background-image': './images/Gregor Clegane.jpg',
+		'height': 80,'width': 80	})
+.selector('#BalonGreyjoy')
+	.css({
+		'background-image': './images/Balon Greyjoy.jpg',
+		'height': 80,'width': 80	})
+.selector('#FreeFolk')
+	.css({
+		'background-image': './images/Free Folk.jpg',
+		'height': 80,'width': 80	})
+.selector('#BrienneofTarth')
+	.css({
+		'background-image': './images/Brienne of Tarth.jpg',
+		'height': 80,'width': 80	})
+.selector('#Bronn')
+	.css({
+		'background-image': './images/Bronn.jpg',
+		'height': 80,'width': 80	})
+.selector('#DaarioNaharis')
+	.css({
+		'background-image': './images/Daario Naharis.jpg',
+		'height': 80,'width': 80	})
+.selector('#DavosSeaworth')
+	.css({
+		'background-image': './images/Davos Seaworth.jpg',
+		'height': 80,'width': 80	})
+.selector('#Hodor')
+	.css({
+		'background-image': './images/Hodor.jpg',
+		'height': 80,'width': 80	})
+.selector('#Melisandre')
+	.css({
+		'background-image': './images/Melisandre.jpg',
+		'height': 80,'width': 80	})
+.selector('#TheonGreyjoy')
+	.css({
+		'background-image': './images/Theon Greyjoy.jpg',
+		'height': 80,'width': 80	})
