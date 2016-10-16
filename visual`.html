@@ -1,59 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<style type="text/css">
-		#cy {width: 100%; 
-		height:1000px;}
-		</style>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-  		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css" integrity="sha384-2hfp1SzUoho7/TsGGGDaFdsuuDL0LX2hnUp6VkX3CUQ2K4K+xjboZdsXyp4oUHZj" crossorigin="anonymous">
-  		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js" integrity="sha384-THPy051/pYDQGanwU6poAc/hOdQxjnOEXzbT+OuUAFqNqFjL+4IGLBgCJC3ZOShY" crossorigin="anonymous"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/js/bootstrap.min.js" integrity="sha384-VjEeINv9OSwtWFLAtmc4JCtEJXXBub00gtSnszmspDLCtC0I4z4nqz7rEFbIZLLU" crossorigin="anonymous"></script>
-  		<script src="cytoscape.js"></script>
-  		<script src="cola.js"></script>
-  		<script src="cytoscape-cola.js"></script>
-	</head>
-	<body>
-		<div class="jumbotron">
-			<h2 style="text-align:center"> Game of Thrones - Network Visualization </h2>
-		</div>
-		<div class="container">
-			This data is sourced from the Game of thrones wikia <a href="http://gameofthrones.wikia.com"> Here </a>.The crawl is then processed through python to extact an entity -> Relationship -> Entity format from the infoboxes.The JS visualization library, <a href="http://js.cytoscape.org/">Cytoscape.js</a> is used for visualization. Select the layout to visualize the network. <br> <br>
-			<div class="row">
-				<div class="col-sm-4">
-					<label>Layout :</label>
-						<select class="selectpicker" id="sel1" data-style="btn-primary" data-width="500px" onchange="makeLayout()">
-							<option>random</option>
-							<option>grid</option>
-							<option>circle</option>
-							<option>concentric</option>
-							<option>breadthfirst</option>
-							<option>cola</option>
-						</select>
-					
-				</div>
-				<div class="col-sm-4">
-						<div class="input-group">
-						  <span class="input-group-addon" id="basic-addon1">Zoom Level</span>
-						  <input type="text" class="form-control" placeholder="Zoom Level" aria-describedby="basic-addon1" id="zoom" onchange="changeZoom()">
-						</div>
-				</div>
-				<div class="col-sm-4">
-					<div class="input-group">
-						  <span class="input-group-addon" id="basic-addon2">X</span>
-						  <input type="text" class="form-control" placeholder="X" aria-describedby="basic-addon1" id="panx" onchange="changePan()">
-						
-						  <span class="input-group-addon" id="basic-addon3">Y</span>
-						  <input type="text" class="form-control" placeholder="Y" aria-describedby="basic-addon1" id="pany" onchange="changePan()">
-						</div>
-				</div>
-			</div>
-			<div id='cy'></div>
-		</div>
-		<script type="text/javascript">
-var cy = cytoscape({
+<html>
+<head>
+	<style>
+	#cy {width: 90%; 
+		height:100%;}
+	#zm {width: 90%; height:100%;}
+	</style>
+	<script src="cytoscape.js"></script>
+</head>
+<body>
+	<div id="cy"></div>
+	<div id="zm"></div>
+	<script>
+	var cy = cytoscape({
   container: document.getElementById('cy'), // container to render in
   elements: [
   {data:{id: 'Valyrian', lbl :'Valyrian'}},
@@ -1092,53 +1050,264 @@ var cy = cytoscape({
     levelWidth: function( nodes ){ // the variation of concentric values in each level
     	return nodes.maxDegree() / 6;
     },
-},
- 
-	
-	userZoomingEnabled: false,
-	boxSelectionEnabled: true,
-	 userPanningEnabled: false,
-});
-		function makeLayout () {
-			cy.makeLayout({ name: document.getElementById("sel1").value})
-			.run();
-			document.getElementById("zoom").value=cy.zoom();
-			document.getElementById("panx").value=cy.pan()['x'];
-			document.getElementById("pany").value=cy.pan()['y'];
-		}
+}});
 
-		function changeZoom(){
-			cy.zoom(parseFloat(document.getElementById("zoom").value));
-		}
+var cyt = cytoscape({
+			container: document.getElementById('zm'),
+			style: cytoscape.stylesheet()
+			.selector('node')
+			.css({
+				'height': 80,
+				'width': 80,
+				'background-fit': 'cover',
+				'border-color': '#000',
+				'border-width': 3,
+				'border-opacity': 0.5,
+				'label': 'data(lbl)',
+				'background-image': './images/House Stark.jpg'
+			})
+			.selector('edge')
+			.css({
+				'width': 1,
+				'target-arrow-shape': 'triangle',
+				'curve-style': 'bezier',
+        'label': 'data(lbl)'
+   })
+			.selector('edge.Family')
+			.css({
+        //'line-style': 'dotted',
+        'target-arrow-shape': 'diamond',
+        'line-color': '#9999ff',
+        'target-arrow-color': '#9999ff',
+   })
+			.selector('edge.Allegiance')
+			.css({
+        //'line-style': 'dotted',
+        'target-arrow-shape': 'diamond',
+        'line-color': '#3399ff',
+        'target-arrow-color': '#3399ff',
+   })     
+			.selector('#Valyrian')
+			.css({
+				'background-image': './images/Valyrian.jpg',
+				'height': 80,'width': 80	})
+			.selector('#RhaegarTargaryen')
+			.css({
+				'background-image': './images/Rhaegar Targaryen.jpg',
+				'height': 80,'width': 80	})
+			.selector('#DaenerysTargaryen')
+			.css({
+				'background-image': './images/Daenerys Targaryen.jpg',
+				'height': 80,'width': 80	})
+			.selector('#JonSnow')
+			.css({
+				'background-image': './images/Jon Snow.jpg',
+				'height': 80,'width': 80	})
+			.selector('#RobertBaratheon')
+			.css({
+				'background-image': './images/Robert Baratheon.jpg',
+				'height': 80,'width': 80	})
+			.selector('#HouseTargaryen')
+			.css({
+				'background-image': './images/House Targaryen.jpg',
+				'height': 80,'width': 80	})
+			.selector('#EddardStark')
+			.css({
+				'background-image': './images/Eddard Stark.jpg',
+				'height': 80,'width': 80	})
+			.selector('#RobbStark')
+			.css({
+				'background-image': './images/Robb Stark.jpg',
+				'height': 80,'width': 80	})
+			.selector('#SansaStark')
+			.css({
+				'background-image': './images/Sansa Stark.jpg',
+				'height': 80,'width': 80	})
+			.selector('#BranStark')
+			.css({
+				'background-image': './images/Bran Stark.jpg',
+				'height': 80,'width': 80	})
+			.selector('#TyrionLannister')
+			.css({
+				'background-image': './images/Tyrion Lannister.jpg',
+				'height': 80,'width': 80	})
+			.selector('#RamsayBolton')
+			.css({
+				'background-image': './images/Ramsay Bolton.jpg',
+				'height': 80,'width': 80	})
+			.selector('#PetyrBaelish')
+			.css({
+				'background-image': './images/Petyr Baelish.jpg',
+				'height': 80,'width': 80	})
+			.selector('#Northmen')
+			.css({
+				'background-image': './images/Northmen.jpg',
+				'height': 80,'width': 80	})
+			.selector('#HouseStark')
+			.css({
+				'background-image': './images/House Stark.jpg',
+				'height': 80,'width': 80	})
+			.selector('#OldGodsoftheForest')
+			.css({
+				'background-image': './images/Old Gods of the Forest.jpg',
+				'height': 80,'width': 80	})
+			.selector('#FaithoftheSeven')
+			.css({
+				'background-image': './images/Faith of the Seven.jpg',
+				'height': 80,'width': 80	})
+			.selector('#Many-FacedGod')
+			.css({
+				'background-image': './images/Many-Faced God.jpg',
+				'height': 80,'width': 80	})
+			.selector('#HouseTarth')
+			.css({
+				'background-image': './images/House Tarth.jpg',
+				'height': 80,'width': 80	})
+			.selector('#AryaStark')
+			.css({
+				'background-image': './images/Arya Stark.jpg',
+				'height': 80,'width': 80	})
+			.selector('#HouseLannister')
+			.css({
+				'background-image': './images/House Lannister.jpg',
+				'height': 80,'width': 80	})
+			.selector('#OberynMartell')
+			.css({
+				'background-image': './images/Oberyn Martell.jpg',
+				'height': 80,'width': 80	})
+			.selector('#SandorClegane')
+			.css({
+				'background-image': './images/Sandor Clegane.jpg',
+				'height': 80,'width': 80	})
+			.selector('#AerysIITargaryen')
+			.css({
+				'background-image': './images/Aerys II Targaryen.jpg',
+				'height': 80,'width': 80	})
+			.selector('#Ygritte')
+			.css({
+				'background-image': './images/Ygritte.jpg',
+				'height': 80,'width': 80	})
+			.selector('#MargaeryTyrell')
+			.css({
+				'background-image': './images/Margaery Tyrell.jpg',
+				'height': 80,'width': 80	})
+			.selector('#LyannaMormont')
+			.css({
+				'background-image': './images/Lyanna Mormont.jpg',
+				'height': 80,'width': 80	})
+			.selector('#Varys')
+			.css({
+				'background-image': './images/Varys.jpg',
+				'height': 80,'width': 80	})
+			.selector('#HouseMormont')
+			.css({
+				'background-image': './images/House Mormont.jpg',
+				'height': 80,'width': 80	})
+			.selector('#JorahMormont')
+			.css({
+				'background-image': './images/Jorah Mormont.jpg',
+				'height': 80,'width': 80	})
+			.selector('#HouseTyrell')
+			.css({
+				'background-image': './images/House Tyrell.jpg',
+				'height': 80,'width': 80	})
+			.selector('#StannisBaratheon')
+			.css({
+				'background-image': './images/Stannis Baratheon.jpg',
+				'height': 80,'width': 80	})
+			.selector('#JoffreyBaratheon')
+			.css({
+				'background-image': './images/Joffrey Baratheon.jpg',
+				'height': 80,'width': 80	})
+			.selector('#TommenBaratheon')
+			.css({
+				'background-image': './images/Tommen Baratheon.jpg',
+				'height': 80,'width': 80	})
+			.selector('#CerseiLannister')
+			.css({
+				'background-image': './images/Cersei Lannister.jpg',
+				'height': 80,'width': 80	})
+			.selector('#TywinLannister')
+			.css({
+				'background-image': './images/Tywin Lannister.jpg',
+				'height': 80,'width': 80	})
+			.selector('#theLordofLight')
+			.css({
+				'background-image': './images/the Lord of Light.jpg',
+				'height': 80,'width': 80	})
+			.selector('#GregorClegane')
+			.css({
+				'background-image': './images/Gregor Clegane.jpg',
+				'height': 80,'width': 80	})
+			.selector('#BalonGreyjoy')
+			.css({
+				'background-image': './images/Balon Greyjoy.jpg',
+				'height': 80,'width': 80	})
+			.selector('#FreeFolk')
+			.css({
+				'background-image': './images/Free Folk.jpg',
+				'height': 80,'width': 80	})
+			.selector('#BrienneofTarth')
+			.css({
+				'background-image': './images/Brienne of Tarth.jpg',
+				'height': 80,'width': 80	})
+			.selector('#Bronn')
+			.css({
+				'background-image': './images/Bronn.jpg',
+				'height': 80,'width': 80	})
+			.selector('#DaarioNaharis')
+			.css({
+				'background-image': './images/Daario Naharis.jpg',
+				'height': 80,'width': 80	})
+			.selector('#DavosSeaworth')
+			.css({
+				'background-image': './images/Davos Seaworth.jpg',
+				'height': 80,'width': 80	})
+			.selector('#Hodor')
+			.css({
+				'background-image': './images/Hodor.jpg',
+				'height': 80,'width': 80	})
+			.selector('#Melisandre')
+			.css({
+				'background-image': './images/Melisandre.jpg',
+				'height': 80,'width': 80	})
+			.selector('#TheonGreyjoy')
+			.css({
+				'background-image': './images/Theon Greyjoy.jpg',
+				'height': 80,'width': 80	})
+			,layout: {
+				name: 'concentric',
+				padding : 1,
+				minNodeSpacing: 1,
+				animate: true,
+    levelWidth: function( nodes ){ // the variation of concentric values in each level
+    	return nodes.maxDegree() / 6;
+    },
+}});
 
-		function changePan(){
-			var x=parseFloat(document.getElementById("panx").value);
-			var y=parseFloat(document.getElementById("pany").value);
-			cy.pan({x: x, y: y});
-		}
+cy.on('tap', function(event){
+	document.getElementById("zm").style.visibility="visible";
+	var evtTarget = event.cyTarget;
+	if( evtTarget !== cy ){
+		var neighbours=evtTarget.closedNeighborhood();
+		cyt.add(neighbours);
+		cyt.fit();
+		cyt.layout({name : 'concentric'});
+  	}
+  });
 
-		cy.$('node').on('mouseover', function(e){
-		  var ele = e.cyTarget.closedNeighborhood();
-		  for (i=0;i<ele.length;i++){
-		  	if (ele[i].isEdge()){
-		  		ele[i].style({width:10});
-		  	} else {
-		  		ele[i].style({'border-width':10});
-		  	}
-		  }
-		});
-
-		cy.$('node').on('mouseout', function(e){
-		  var ele = e.cyTarget.closedNeighborhood();
-		  for (i=0;i<ele.length;i++){
-		  	if (ele[i].isEdge()){
-		  		ele[i].style({width:3});
-		  	}else {
-		  		ele[i].style({'border-width':3});
-		  	}
-		  }
-		});
-
-		</script>
-	</body>
+cyt.on('tap', function(event){
+	var evtTarget = event.cyTarget;
+	if( evtTarget === cyt ){
+		alert("Clicked Elsewhere")
+	} else {
+		var neighbours=evtTarget.closedNeighborhood();
+		alert(neighbours.json());
+		cyt.add(neighbours);
+		cyt.fit();
+		cyt.makeLayout();
+  	}
+  });
+</script>
+</body>
 </html>
