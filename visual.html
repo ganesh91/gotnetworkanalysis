@@ -22,7 +22,7 @@
 		<div class="container">
 			This data is sourced from the Game of thrones wikia <a href="http://gameofthrones.wikia.com"> Here </a>.The crawl is then processed through python to extact an entity -> Relationship -> Entity format from the infoboxes.The JS visualization library, <a href="http://js.cytoscape.org/">Cytoscape.js</a> is used for visualization. Select the layout to visualize the network. <br> <br>
 			<div class="row">
-				<div class="col-sm-4">
+				<div class="col-sm-6">
 					<label>Layout :</label>
 						<select class="selectpicker" id="sel1" data-style="btn-primary" data-width="500px" onchange="makeLayout()">
 							<option>random</option>
@@ -47,8 +47,23 @@
               <option>Family</option>
               <option>All</option>
             </select>	
+
+          <label>Add :</label>
+            <select class="selectpicker" id="sel3" data-style="btn-primary" data-width="500px">
+              <option>Select</option>
+              <option>Actor</option>
+              <option>Allegiance</option>
+              <option>Culture</option>
+              <option>Place</option>
+              <option>Relation</option>
+              <option>Religion</option>
+              <option>Season</option>
+              <option>Status</option>
+              <option>Titles</option>
+              <option>Family</option>
+            </select> 
 				</div>
-				<div class="col-sm-4">
+				<div class="col-sm-2">
 						<div class="input-group">
 						  <span class="input-group-addon" id="basic-addon1">Zoom Level</span>
 						  <input type="text" class="form-control" placeholder="Zoom Level" aria-describedby="basic-addon1" id="zoom" onchange="changeZoom()">
@@ -9910,17 +9925,7 @@ var edges=[{data:{id: '0', lbl :'Actor', source :'EddardStark',target: 'SeanBean
 ]
 var cy = cytoscape({
   container: document.getElementById('cy'), // container to render in
-  elements: [
-  {data:{id: 'NannaBryndísHilmarsdóttir', lbl :'Nanna Bryndís Hilmarsdóttir'}},
-{data:{id: 'Mummer', lbl :'Mummer'}},
-{data:{id: 'AlistairJames', lbl :'Alistair James'}},
-{data:{id: 'HighSepton', lbl :'High Septon'}},
-{data:{id: 'HouseBaratheonofDragonstone-bymarriage', lbl :'House Baratheon of Dragonstone - by marriage'}},
-{data:{id: 'BarristanSelmy', lbl :'Barristan Selmy'}},
-{data:{id: 'MiaSoteriou', lbl :'Mia Soteriou'}},
-{data:{id: 'Torturedprisoner', lbl :'Tortured prisoner'}},
-{data:{id: 'RhaenyraTargaryen', lbl :'Rhaenyra Targaryen'}},
-  ],
+  elements: [],
 
   style: cytoscape.stylesheet()
   .selector('node')
@@ -10183,6 +10188,7 @@ var cy = cytoscape({
 
     function FilterNodes () {
       var filterQuery=document.getElementById("sel2").value;
+      var additionalQuery=document.getElementById("sel3").value;
       destroyGraph();
       for (i=0;i<vertices.length;i++){
         cy.add(vertices[i]);
@@ -10190,7 +10196,7 @@ var cy = cytoscape({
 
       if(filterQuery!="All"){
       for (i=0; i<edges.length;i++){
-        if (edges[i]['data']['lbl'] == filterQuery){
+        if ((edges[i]['data']['lbl'] == filterQuery) || (edges[i]['data']['lbl'] == additionalQuery)){
           cy.add(edges[i]);
         }
       }
