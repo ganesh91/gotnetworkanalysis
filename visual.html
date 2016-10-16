@@ -32,7 +32,20 @@
 							<option>breadthfirst</option>
 							<option>cola</option>
 						</select>
-					
+          <label>Data :</label>
+            <select class="selectpicker" id="sel2" data-style="btn-primary" data-width="500px" onchange="FilterNodes()">
+              <option>Select</option>
+              <option>Actor</option>
+              <option>Allegiance</option>
+              <option>Culture</option>
+              <option>Place</option>
+              <option>Relation</option>
+              <option>Religion</option>
+              <option>Season</option>
+              <option>Status</option>
+              <option>Titles</option>
+              <option>Family</option>
+            </select>	
 				</div>
 				<div class="col-sm-4">
 						<div class="input-group">
@@ -53,10 +66,8 @@
 			<div id='cy'></div>
 		</div>
 		<script type="text/javascript">
-var cy = cytoscape({
-  container: document.getElementById('cy'), // container to render in
-  elements: [
-  {data:{id: '', lbl :''}},
+
+var vertices=[  {data:{id: '', lbl :''}},
 {data:{id: 'Gared\'sfather', lbl :'Gared\'s father'}},
 {data:{id: 'Unsullied1', lbl :'Unsullied 1'}},
 {data:{id: 'DanielKendrick', lbl :'Daniel Kendrick'}},
@@ -2291,8 +2302,9 @@ var cy = cytoscape({
 {data:{id: 'FolaEvans-Akingbola', lbl :'Fola Evans-Akingbola'}},
 {data:{id: 'DoranMartell', lbl :'Doran Martell'}},
 {data:{id: 'KateDickie', lbl :'Kate Dickie'}},
-{data:{id: 'DeanS.Jagger', lbl :'Dean S. Jagger'}},
-{data:{id: '0', lbl :'Actor', source :'EddardStark',target: 'SeanBean'},classes : 'Actor'},
+{data:{id: 'DeanS.Jagger', lbl :'Dean S. Jagger'}}]
+
+var edges=[{data:{id: '0', lbl :'Actor', source :'EddardStark',target: 'SeanBean'},classes : 'Actor'},
 {data:{id: '1', lbl :'Actor', source :'EddardStark',target: 'RobertAramayo'},classes : 'Actor'},
 {data:{id: '2', lbl :'Actor', source :'EddardStark',target: 'SebastianCroft'},classes : 'Actor'},
 {data:{id: '3', lbl :'Actor', source :'TyrionLannister',target: 'PeterDinklage'},classes : 'Actor'},
@@ -9893,7 +9905,20 @@ var cy = cytoscape({
 {data:{id: '7598', lbl :'Family', source :'Laygood',target: 'Unnamedwife'},classes : 'Family'},
 {data:{id: '7599', lbl :'Family', source :'JonSnow',target: 'Drogo'},classes : 'Family'},
 {data:{id: '7600', lbl :'Family', source :'JonSnow',target: 'TyrionLannister'},classes : 'Family'},
-{data:{id: '7601', lbl :'Family', source :'JonSnow',target: 'Ygritte'},classes : 'Family'},
+{data:{id: '7601', lbl :'Family', source :'JonSnow',target: 'Ygritte'},classes : 'Family'}
+]
+var cy = cytoscape({
+  container: document.getElementById('cy'), // container to render in
+  elements: [
+  {data:{id: 'NannaBryndísHilmarsdóttir', lbl :'Nanna Bryndís Hilmarsdóttir'}},
+{data:{id: 'Mummer', lbl :'Mummer'}},
+{data:{id: 'AlistairJames', lbl :'Alistair James'}},
+{data:{id: 'HighSepton', lbl :'High Septon'}},
+{data:{id: 'HouseBaratheonofDragonstone-bymarriage', lbl :'House Baratheon of Dragonstone - by marriage'}},
+{data:{id: 'BarristanSelmy', lbl :'Barristan Selmy'}},
+{data:{id: 'MiaSoteriou', lbl :'Mia Soteriou'}},
+{data:{id: 'Torturedprisoner', lbl :'Tortured prisoner'}},
+{data:{id: 'RhaenyraTargaryen', lbl :'Rhaenyra Targaryen'}},
   ],
 
   style: cytoscape.stylesheet()
@@ -10128,9 +10153,9 @@ var cy = cytoscape({
 },
  
 	
-	userZoomingEnabled: false,
-	boxSelectionEnabled: true,
-	 userPanningEnabled: false,
+	// userZoomingEnabled: false,
+	// boxSelectionEnabled: true,
+	//  userPanningEnabled: false,
 });
 		function makeLayout () {
 			cy.makeLayout({ name: document.getElementById("sel1").value})
@@ -10149,6 +10174,34 @@ var cy = cytoscape({
 			var y=parseFloat(document.getElementById("pany").value);
 			cy.pan({x: x, y: y});
 		}
+
+    function destroyGraph (argument) {
+      cy.remove('node[label != "~!"]');
+      cy.remove('edge[id >= 0]');
+    }
+
+    function FilterNodes () {
+      var filterQuery=document.getElementById("sel2").value;
+      destroyGraph();
+      for (i=0;i<vertices.length;i++){
+        cy.add(vertices[i]);
+      }
+
+      for (i=0; i<edges.length;i++){
+        if (edges[i]['data']['lbl'] == filterQuery){
+          cy.add(edges[i]);
+        }
+      }
+
+      var nodesWithNoDegrees=cy.elements('node[label != "~!"]');
+
+      for (i=0;i<nodesWithNoDegrees.length;i++){
+        if(nodesWithNoDegrees[i].degree() <=0){
+          cy.remove(nodesWithNoDegrees[i]);
+        }
+      }
+
+    }
 
 		cy.$('node').on('mouseover', function(e){
 		  var ele = e.cyTarget.closedNeighborhood();
