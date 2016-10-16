@@ -45,6 +45,7 @@
               <option>Status</option>
               <option>Titles</option>
               <option>Family</option>
+              <option>All</option>
             </select>	
 				</div>
 				<div class="col-sm-4">
@@ -10187,6 +10188,7 @@ var cy = cytoscape({
         cy.add(vertices[i]);
       }
 
+      if(filterQuery!="All"){
       for (i=0; i<edges.length;i++){
         if (edges[i]['data']['lbl'] == filterQuery){
           cy.add(edges[i]);
@@ -10200,6 +10202,36 @@ var cy = cytoscape({
           cy.remove(nodesWithNoDegrees[i]);
         }
       }
+
+    }else{
+      for (i=0; i<edges.length;i++){
+          cy.add(edges[i]);
+        }
+      }
+
+      //Reactivate Mouse Events:
+
+      cy.$('node').on('mouseover', function(e){
+      var ele = e.cyTarget.closedNeighborhood();
+      for (i=0;i<ele.length;i++){
+        if (ele[i].isEdge()){
+          ele[i].style({width:10});
+        } else {
+          ele[i].style({'border-width':10});
+        }
+      }
+    });
+
+    cy.$('node').on('mouseout', function(e){
+      var ele = e.cyTarget.closedNeighborhood();
+      for (i=0;i<ele.length;i++){
+        if (ele[i].isEdge()){
+          ele[i].style({width:3});
+        }else {
+          ele[i].style({'border-width':3});
+        }
+      }
+    });
 
     }
 
