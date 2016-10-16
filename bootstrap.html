@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<style type="text/css">
+		#cy {width: 100%; 
+		height:500px;}
+		</style>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+  		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css" integrity="sha384-2hfp1SzUoho7/TsGGGDaFdsuuDL0LX2hnUp6VkX3CUQ2K4K+xjboZdsXyp4oUHZj" crossorigin="anonymous">
+  		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js" integrity="sha384-THPy051/pYDQGanwU6poAc/hOdQxjnOEXzbT+OuUAFqNqFjL+4IGLBgCJC3ZOShY" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/js/bootstrap.min.js" integrity="sha384-VjEeINv9OSwtWFLAtmc4JCtEJXXBub00gtSnszmspDLCtC0I4z4nqz7rEFbIZLLU" crossorigin="anonymous"></script>
+  		<script src="cytoscape.js"></script>
+	</head>
+	<body>
+		<div class="jumbotron">
+			<h2 style="text-align:center"> Game of Thrones - Network Visualization </h2>
+		</div>
+		<div class="container">
+			This data is sourced from the Game of thrones wikia <a href="http://gameofthrones.wikia.com"> Here </a>.The crawl is then processed through python to extact an entity -> Relationship -> Entity format from the infoboxes.The JS visualization library, <a href="http://js.cytoscape.org/">Cytoscape.js</a> is used for visualization. Select the layout to visualize the network. <br> <br>
+			<div class="row">
+				<div class="col-sm-4"></div>
+				<div class="col-sm-4">
+						<select class="selectpicker" id="sel1" data-style="btn-primary" data-width="500px" onchange="makeLayout()">
+							<option>random</option>
+							<option>grid</option>
+							<option>circle</option>
+							<option>concentric</option>
+							<option>breadthfirst</option>
+						</select>
+				</div>
+				<div class="col-sm-4"></div>
+			</div>
+			<div id='cy'></div>
+		</div>
+		<script type="text/javascript">
+		var cy = cytoscape({
+
+  container: document.getElementById('cy'), // container to render in
+
+  elements: {
+    nodes: [
+      { data: { id: 'j', name: 'Jerry' } },
+      { data: { id: 'e', name: 'Elaine' } },
+      { data: { id: 'k', name: 'Kramer' } },
+      { data: { id: 'g', name: 'George' } }
+    ],
+    edges: [
+      { data: { source: 'j', target: 'e' } },
+      { data: { source: 'j', target: 'k' } },
+      { data: { source: 'j', target: 'g' } },
+      { data: { source: 'e', target: 'j' } },
+      { data: { source: 'e', target: 'k' } },
+      { data: { source: 'k', target: 'j' } },
+      { data: { source: 'k', target: 'e' } },
+      { data: { source: 'k', target: 'g' } },
+      { data: { source: 'g', target: 'j' } }
+    ]
+  },
+
+  style: [ // the stylesheet for the graph
+    {
+      selector: 'node',
+      style: {
+        'background-color': '#666',
+        'label': 'data(id)'
+      }
+    },
+
+    {
+      selector: 'edge',
+      style: {
+        'width': 3,
+        'line-color': '#ccc',
+
+      }
+    }
+  ],
+
+});
+		function makeLayout () {
+			cy.makeLayout({ name: document.getElementById("sel1").value})
+			.run();
+		}
+		</script>
+	</body>
+</html>
