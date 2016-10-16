@@ -68,14 +68,19 @@
 						  <span class="input-group-addon" id="basic-addon1">Zoom Level</span>
 						  <input type="text" class="form-control" placeholder="Zoom Level" aria-describedby="basic-addon1" id="zoom" onchange="changeZoom()">
 						</div>
+            <button type="button" class="btn btn-primary" onclick="increaseZoom()">+</button>
+            <button type="button" class="btn btn-danger" onclick="decreaseZoom()">-</button>
 				</div>
 				<div class="col-sm-4">
 					<div class="input-group">
 						  <span class="input-group-addon" id="basic-addon2">X</span>
 						  <input type="text" class="form-control" placeholder="X" aria-describedby="basic-addon1" id="panx" onchange="changePan()">
-						
+						  <button type="button" class="btn btn-primary" onclick="increasePanX()">+</button>
+            <button type="button" class="btn btn-danger" onclick="decreasePanX()">-</button>
 						  <span class="input-group-addon" id="basic-addon3">Y</span>
 						  <input type="text" class="form-control" placeholder="Y" aria-describedby="basic-addon1" id="pany" onchange="changePan()">
+              <button type="button" class="btn btn-primary" onclick="increasePanY()">+</button>
+              <button type="button" class="btn btn-danger" onclick="decreasePanY()">-</button>
 						</div>
 				</div>
 			</div>
@@ -10175,11 +10180,41 @@ var cy = cytoscape({
 			cy.zoom(parseFloat(document.getElementById("zoom").value));
 		}
 
+    function increaseZoom(){
+     document.getElementById("zoom").value=parseFloat(document.getElementById("zoom").value)+0.25;
+     changeZoom();
+    }
+
+    function decreaseZoom(){
+     document.getElementById("zoom").value=parseFloat(document.getElementById("zoom").value)-0.25;
+     changeZoom();
+    }
+
 		function changePan(){
 			var x=parseFloat(document.getElementById("panx").value);
 			var y=parseFloat(document.getElementById("pany").value);
 			cy.pan({x: x, y: y});
 		}
+
+    function increasePanX () {
+      document.getElementById("panx").value=parseFloat(document.getElementById("panx").value)+10;
+      changePan();
+    }
+
+    function increasePanY () {
+      document.getElementById("pany").value=parseFloat(document.getElementById("pany").value)+10;
+      changePan();
+    }
+
+    function decreasePanX () {
+      document.getElementById("panx").value=parseFloat(document.getElementById("panx").value)-10;
+      changePan();
+    }
+
+    function decreasePanY () {
+      document.getElementById("pany").value=parseFloat(document.getElementById("pany").value)-10;
+      changePan();
+    }
 
     function destroyGraph (argument) {
       cy.remove('node[label != "~!"]');
